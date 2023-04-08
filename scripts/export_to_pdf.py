@@ -5,7 +5,7 @@ import datetime
 
 def print_help():
     print(
-            """Usage:
+        """Usage: python3 export_to_pdf.py source_dir [output_file]
         """
     )
 
@@ -20,9 +20,10 @@ if __name__ == '__main__':
         print_help()
         raise SystemExit
     
+    sourcedir = sys.argv[1]
+    outputfile = sys.argv[2] if len(sys.argv) > 2 else "export.txt"
+    files = listfiles(sourcedir)
 
-    print(sys.argv[1])
-    files = listfiles(sys.argv[1])
 
     files_with_date = [
         (
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     ]
 
     files = sorted(files_with_date)
-    with open('export.txt', 'w') as export_file:
+    with open(outputfile, 'w') as export_file:
         for _, file in files:
             with open(file) as f:
                 export_file.write(f.read())
